@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export HTTPS_MODE=https
+set -ex
 
 if [ -z "$IMAGE_FULL_NAME" ]; then
     echo "No IMAGE_FULL_NAME"
@@ -24,13 +24,20 @@ if [ -z "$HOST_PORT" ]; then
     HOST_PORT=3000
 fi
 
-docker stop mini-server || true
-docker rm mini-server || true
+if [ -z "$CONTAINER_NAME" ]; then
+    echo "No CONTAINER_NAME. USE mini-server"
+    CONTAINER_NAME=mini-server
+fi
+
+docker stop $CONTAINER_NAME || true
+docker rm $CONTAINER_NAME || true
+
+docker pull $IMAGE_FULL_NAME
 
 docker run -d \
     -p $HOST_PORT:3000 \
     --restart on-failure \
-    --name mini-server \
+    --name $CONTAINER_NAME \
     -e "CUSTOM_RESPONSE_STRING=$RESPONSE_STRING" \
     -e "HTTP_MODE=$HTTP_MODE" \
     $IMAGE_FULL_NAME

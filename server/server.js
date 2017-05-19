@@ -29,7 +29,20 @@ var options = {
 var app = express();
 
 app.get('/', function (req, res) {
-    res.send(customResponseString);
+
+    var headers = JSON.stringify(req.headers);
+    console.log(headers);
+
+    var remoteAddress = req.connection.remoteAddress;
+    console.log(remoteAddress);
+
+    var x_forwarded_for = req.headers['x-forwarded-for']
+    console.log(remoteAddress);
+
+    var response = "headers: "+ headers + "remoteAddress: " + remoteAddress + 
+        "x_forwarded_for" + x_forwarded_for + "customResponseString" + customResponseString;
+
+    res.send(response);
 })
 
 // Create an HTTP service.
