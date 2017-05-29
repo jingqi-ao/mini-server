@@ -22,3 +22,31 @@ $ create-server-key-and-certs.sh
 ## Mini server
 
 Folder: server
+
+## Docker and deploy
+
+Folder: docker
+
+Build image
+
+```
+
+# Note: there is no tag. Tag will be read from package.json automatically
+$ export REMOTE_IMAGE_FULL_NAME=REGISTRY/mini-server
+$ ./build-image.sh
+
+```
+
+Deploy the image (container) to a remote VM
+```
+
+export USER=user
+export REMOTE_VM=1.2.3.4
+export IMAGE_FULL_NAME=REGISTRY/mini-server:0.0.1
+export HOST_PORT=443
+export HTTP_MODE=https
+export CONTAINER_NAME=mini-443
+./deploy-to-remote-vm.sh
+
+```
+
