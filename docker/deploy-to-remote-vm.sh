@@ -27,6 +27,7 @@ REMOTE_COMMAND=$(cat <<EOM
      export HTTP_MODE=$HTTP_MODE &&
      export HOST_PORT=$HOST_PORT &&
      export CONTAINER_NAME=$CONTAINER_NAME &&
+     export REDIRECT_TARGET_URL=$REDIRECT_TARGET_URL &&
      cd mini-server &&
      ./run-container.sh
 EOM

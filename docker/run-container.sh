@@ -15,18 +15,23 @@ if [ -z "$RESPONSE_STRING" ]; then
 fi
 
 if [ -z "$HTTP_MODE" ]; then
-    echo "No HTTP_MODE. USE http"
     HTTP_MODE=http
+    echo "No HTTP_MODE. USE "${HTTP_MODE}
 fi
 
 if [ -z "$HOST_PORT" ]; then
-    echo "No HOST_PORT. USE 3000"
     HOST_PORT=3000
+    echo "No HOST_PORT. USE "${HOST_PORT}
 fi
 
 if [ -z "$CONTAINER_NAME" ]; then
-    echo "No CONTAINER_NAME. USE mini-server"
     CONTAINER_NAME=mini-server
+    echo "No CONTAINER_NAME. USE "${CONTAINER_NAME}
+fi
+
+if [ -z "$REDIRECT_TARGET_URL" ]; then
+    REDIRECT_TARGET_URL=https://www.google.com/
+    echo "No REDIRECT_TARGET_URL. USE "${REDIRECT_TARGET_URL}
 fi
 
 docker stop $CONTAINER_NAME || true
@@ -40,4 +45,5 @@ docker run -d \
     --name $CONTAINER_NAME \
     -e "CUSTOM_RESPONSE_STRING=$RESPONSE_STRING" \
     -e "HTTP_MODE=$HTTP_MODE" \
+    -e "REDIRECT_TARGET_URL=$REDIRECT_TARGET_URL" \
     $IMAGE_FULL_NAME
