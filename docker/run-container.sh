@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Input ENVs
+# - IMAGE_FULL_NAME
+# - RESPONSE_STRING
+# - HTTP_MODE
+# - HOST_PORT
+# - REMOTE_IMAGE
+
 set -ex
 
 if [ -z "$IMAGE_FULL_NAME" ]; then
@@ -37,7 +44,9 @@ fi
 docker stop $CONTAINER_NAME || true
 docker rm $CONTAINER_NAME || true
 
-docker pull $IMAGE_FULL_NAME
+if [ "$REMOTE_IMAGE" == "true" ]; then
+    docker pull $IMAGE_FULL_NAME
+fi
 
 docker run -d \
     -p $HOST_PORT:3000 \

@@ -23,6 +23,7 @@ $ create-server-key-and-certs.sh
 
 Folder: server
 
+
 ## Docker and deploy
 
 Folder: docker
@@ -37,7 +38,20 @@ $ ./build-image.sh
 
 ```
 
+Run the container on the local machine
+
+```
+
+export IMAGE_FULL_NAME=mini-server:0.0.2
+export HOST_PORT=443
+export HTTP_MODE=https
+export CONTAINER_NAME=mini-443
+./run-container.sh
+
+```
+
 Deploy the image (container) to a remote VM
+
 ```
 
 export USER=user
